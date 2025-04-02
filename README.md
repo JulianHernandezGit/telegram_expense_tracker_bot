@@ -1,49 +1,87 @@
 # Telegram Expense Tracker Bot
 
-A Telegram bot that helps track expenses by analyzing user messages, categorizing expenses, and storing them in a database.
+A Telegram bot that helps track expenses by analyzing user messages, categorizing expenses, and storing them in a Supabase database.
 
-## Project Overview
+## 📦 Project Overview
 
 This project consists of two services:
 
-### 1. Bot Service (Python)
-- Analyzes incoming messages to extract expense details
-- Uses LangChain with OpenAI GPT-4o for message interpretation
-- Categorizes expenses into predefined categories
-- Persists expense data to Supabase database
+### 1. Bot Service (Python – FastAPI)
 
-### 2. Connector Service (Node.js)
-- Interfaces with Telegram API
-- Receives and forwards messages to Bot Service
-- Returns responses to users via Telegram API
+- Analyzes incoming messages using LangChain + OpenAI GPT-4o  
+- Extracts expense details and categorizes them into predefined types  
+- Stores expense data in a Supabase database  
 
-## Getting Started
+### 2. Connector Service (Node.js – Telegram Bot)
+
+- Interfaces with the Telegram Bot API  
+- Receives and forwards messages to the Bot Service  
+- Returns AI-generated responses to users  
+
+## ⚙️ Technologies Used
+
+- FastAPI (Python)  
+- Node.js + `node-telegram-bot-api`  
+- Supabase (PostgreSQL + REST API)  
+- LangChain + OpenAI GPT-4o  
+- Railway (Connector Service)  
+- Vercel (Bot Service)  
+
+## 🚀 Getting Started
 
 ### Prerequisites
-- Python 3.11+ for Bot Service
-- Node.js LTS for Connector Service
-- Supabase account for database hosting
-- OpenAI API key for GPT-4o access
-- Telegram Bot API token
 
-### Setup
-1. Clone this repository
-2. Set up each service following the instructions in their respective README files:
-   - [Bot Service README](./bot-service/README.md)
-   - [Connector Service README](./connector-service/README.md)
+- Python 3.11+  
+- Node.js LTS  
+- Supabase account  
+- OpenAI API key  
+- Telegram Bot token from BotFather  
 
-## Usage
-Once both services are running, you can interact with the bot on Telegram:
-1. Send a message containing expense information (e.g., "Pizza 20 bucks")
-2. The bot will analyze the message, extract the expense details, and categorize it
-3. If successful, the bot will respond with a confirmation (e.g., "Food expense added ✅")
-4. The expense will be stored in your Supabase database
+### Setup Instructions
 
-## Deployment
-Both services can be deployed to Vercel:
-1. Set up environment variables in Vercel dashboard
-2. Deploy each service following the instructions in their respective README files
-3. Update the Bot Service URL in Connector Service to point to the deployed URL
+1. Clone this repository  
+2. Follow the setup guides in each service:
 
-## License
-This project is licensed under the ISC License. 
+- `bot-service/README.md` → for the Python AI Bot  
+- `connector-service/README.md` → for the Telegram Connector  
+
+## 💬 Usage
+
+Once both services are deployed and running:
+
+1. Send a message to your bot on Telegram:
+   Example:  
+   Pizza 20 bucks  
+2. The Connector Service forwards the message to the Bot Service  
+3. The Bot Service processes it, extracts the data, and saves it  
+4. If successful, the bot replies with something like:  
+   Food expense added ✅  
+5. The expense is saved in your Supabase database
+
+## ☁️ Deployment Overview
+
+### Bot Service
+
+- Deployed to **Vercel**
+- Uses `vercel.json` and exposes `/process-message`
+- Environment variables:
+  - `SUPABASE_URL`
+  - `SUPABASE_API_KEY`
+  - `OPENAI_API_KEY`
+
+### Connector Service
+
+- Deployed to **Railway**
+- Runs in background using Telegram polling
+- Environment variables:
+  - `TELEGRAM_BOT_TOKEN`
+  - `BOT_SERVICE_URL` → URL from Vercel deployment
+
+## 🔐 Security Note
+
+Row Level Security (RLS) is disabled by default for testing.  
+For production, enable RLS and define appropriate policies in Supabase.
+
+## 📄 License
+
+This project is licensed under the ISC License.
