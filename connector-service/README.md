@@ -1,27 +1,75 @@
 # Telegram Expense Tracker - Connector Service
 
-Node.js service that connects Telegram API with the Bot Service.
+This is the Node.js service that connects to the Telegram Bot API and forwards messages to the Bot Service for processing.
 
-## Features
-- Telegram Bot API integration
-- Message forwarding to Bot Service
-- Response handling
+## ✨ Features
 
-## Requirements
-- Node.js LTS (18.x or newer)
-- Telegram Bot token
+- Telegram Bot API integration  
+- Message forwarding to the Bot Service via HTTP  
+- Sends response messages back to users  
+- Includes a `/health` endpoint for server checks  
 
-## Setup Instructions
-1. Clone this repository
-2. Install dependencies: `npm install`
-3. Copy `.env.example` to `.env` and fill in your credentials
-4. Build the TypeScript code: `npm run build`
-5. Start the service: `npm start`
-   
-## Development
-- Run in development mode: `npm run dev`
+## 📦 Requirements
 
-## Environment Variables
-- `TELEGRAM_BOT_TOKEN`: Your Telegram Bot token
-- `BOT_SERVICE_URL`: URL of the Bot Service
-- `PORT`: Port for the health check server (default: 3000) 
+- Node.js LTS (v18 or newer)  
+- Telegram Bot Token from BotFather  
+- Railway (or similar platform) to run the bot continuously  
+
+## ⚙️ Setup Instructions
+
+1. Clone this repository  
+2. Navigate to the `connector-service` directory:  
+   ```bash
+   cd connector-service
+   ```
+3. Install dependencies:  
+   ```bash
+   npm install
+   ```
+4. Copy the environment template:  
+   ```bash
+   cp .env.example .env
+   ```
+5. Fill in the following environment variables in `.env`:  
+   - `TELEGRAM_BOT_TOKEN`  
+   - `BOT_SERVICE_URL`  
+   - (Optional) `PORT` (default is `3000`)  
+6. Build the TypeScript code:  
+   ```bash
+   npm run build
+   ```
+7. Start the service:  
+   ```bash
+   npm start
+   ```
+
+## 🚀 Development Mode
+
+To run the bot live without building:  
+```bash
+npm run dev
+```
+
+This uses ts-node with ES module support.  
+
+## ☁️ Deployment (Recommended: Railway)
+
+Deploy this service to [Railway](https://railway.app) or any Node-compatible host:
+
+1. Set the root directory to `connector-service`  
+2. Railway will auto-detect:  
+   - Build command: `npm run build`  
+   - Start command: `npm start`  
+3. Add environment variables:  
+   - `TELEGRAM_BOT_TOKEN`  
+   - `BOT_SERVICE_URL` → use the URL of your deployed Bot Service on Vercel  
+
+Once deployed, the bot will be live and listen to messages in real time.  
+
+## 🔐 Environment Variables
+
+| Variable             | Description                                                    |
+|----------------------|----------------------------------------------------------------|
+| `TELEGRAM_BOT_TOKEN` | Telegram Bot token (from BotFather)                            |
+| `BOT_SERVICE_URL`    | URL of the deployed Bot Service (e.g., https://...vercel.app)  |
+| `PORT`               | Optional. Port for the /health check (default: 3000)           |
