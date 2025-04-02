@@ -1,0 +1,31 @@
+{
+  "name": "telegram-expense-tracker-connector",
+  "version": "1.0.0",
+  "description": "Telegram Bot Connector for Expense Tracker",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node --esm src/index.ts",
+    "vercel-build": "npm run build"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "expense",
+    "tracker"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "node-telegram-bot-api": "^0.61.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.0",
+    "@types/node-telegram-bot-api": "^0.61.6",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
+} 
